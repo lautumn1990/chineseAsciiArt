@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" class="white">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>my ascii test</title>
+    <link href="./css/css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="./css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/style(1).css">
+</head>
+<body>
+        <div id="scene"><canvas width="160" height="160" style="width: 160px; height: 160px; margin-top: -80px; margin-left: -80px;"></canvas></div>
+        <header>
+                <a id="home" href="http://sliiice.com/"><span class="hidden-text">sliiice</span></a>
+                <h1>app - traditional chinese ascii art</h1>
+                <div id="info">
+                  <em>drop a .jpg on the canvas</em><br>
+                  ↑ / → : <a href="javascript: site.sizeup();showStatus()">bigger</a><br>
+                  ↓ / ← : <a href="javascript: site.sizedown();showStatus()">smaller</a><br>
+                  r : <a href="javascript: site.init();showStatus()">random image</a><br>
+                  s : <a href="javascript: site.dosave()">save to .png</a><br>
+                  c : <a href="javascript: site.saveContentToClipboard()">copy content to clipboard</a><br>
+                  <br/>
+                  status: 
+                  col: <span id="col"></span> row: <span id="row"></span>
+                </div>
+          </header>
+        <div id="loader">loaded!</div>
+        <div id="result-wrapper">
+          <div id="result"></div>
+          <div class="info">
+            you can select all and copy now<br>
+            <a id="close" role="button">o : </a><a href="javascript:site.hideResult();">close</a>
+          </div>
+        </div>
+
+    <script src="./js/functions.js"></script>
+<script src="./js/jquery-latest.pack.js"></script>
+<script src="./js/uploader.js"></script>
+<script src="./js/functions_array.js"></script>
+<script src="./js/charstep.js"></script>
+<script src="./js/image.js"></script>
+<script src="./js/site.js"></script>
+<script type="text/javascript">
+  var site = new Site();
+  site.setup();
+  setTimeout(() => {
+    showStatus();
+  }, 1000);
+  function showStatus(){
+    document.getElementById("col").innerHTML = site.source.col;
+    document.getElementById("row").innerHTML = site.source.row;
+  }
+</script>
+</body>
+</html>
