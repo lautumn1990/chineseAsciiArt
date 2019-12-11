@@ -60,6 +60,7 @@ Site.prototype = {
     this.window.bind("keydown", this.keydown.bind( this ));
     this.body.bind("mousemove", this.mousemove.bind( this ) );
     this.body.bind("click", this.click.bind( this ) );
+    this.body.bind("touchend", this.touchend.bind( this ) );
     this.canvas[0].addEventListener("drop", this.drop.bind( this ));
     this.canvas[0].addEventListener("dragover", function (event) {
       event.preventDefault();
@@ -76,6 +77,15 @@ Site.prototype = {
   },
 
   click:function(event){
+    if(this.html.hasClass("move")){
+      this.html.removeClass('move');
+    }else{
+      // this.html.addClass('move');
+      this.mousemove();
+    }
+  },
+
+  touchend:function(event){
     if(this.html.hasClass("move")){
       this.html.removeClass('move');
     }else{
