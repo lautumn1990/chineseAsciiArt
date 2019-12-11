@@ -24,7 +24,7 @@
                   c : <a href="javascript: site.saveContentToClipboard()">copy content to clipboard</a><br>
                   <br/>
                   status: 
-                  col: <span id="col"></span> row: <span id="row"></span>
+                  <span class="display:none" id="loading">loading</span><span id="colrow">col: <span id="col"></span> row: <span id="row"></span></span>
                 </div>
           </header>
         <div id="loader">loaded!</div>
@@ -50,6 +50,13 @@
     showStatus();
   }, 1000);
   function showStatus(){
+    if(site.loading){
+      $("#loading").show();
+      $("#colrow").hide();
+      return;
+    }
+    $("#loading").hide();
+    $("#colrow").show();
     var col = site.source.col?site.source.col:0;
     var row = site.source.row?site.source.row:0;
     document.getElementById("col").innerHTML = site.source.col;
