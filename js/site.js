@@ -59,6 +59,7 @@ Site.prototype = {
   observe: function() {
     this.window.bind("keydown", this.keydown.bind( this ));
     this.body.bind("mousemove", this.mousemove.bind( this ) );
+    this.body.bind("click", this.click.bind( this ) );
     this.canvas[0].addEventListener("drop", this.drop.bind( this ));
     this.canvas[0].addEventListener("dragover", function (event) {
       event.preventDefault();
@@ -71,7 +72,16 @@ Site.prototype = {
 
     this.checkmove = setTimeout( function(){
       this.html.removeClass('move');
-    }.bind( this ), 4000)
+    }.bind( this ), 2000)
+  },
+
+  click:function(event){
+    if(this.html.hasClass("move")){
+      this.html.removeClass('move');
+    }else{
+      // this.html.addClass('move');
+      this.mousemove();
+    }
   },
 
   keydown: function( event ) {
@@ -188,7 +198,10 @@ Site.prototype = {
     var url = this.canvas[0].toDataURL('image/png');
     if( this.mypic && ! share) {
       this.save = false;
-      window.open( url, "ascii art in chinese by sliiice");
+      // window.open( url, "ascii art in chinese by sliiice");
+      // openInNewTab(url,"ascii art in chinese by sliiice");
+      var title = "newImg_"+new Date().getTime()+"_"+this.width+"_"+this.height+".png";
+      downloadImage(url,title);
       this.xx('done')
       this.loaded();
       return;
@@ -204,7 +217,10 @@ Site.prototype = {
       }
       this.save = false;
       if( ! share ) {
-        window.open( url, "ascii art in chinese by sliiice");
+        // window.open( url, "ascii art in chinese by sliiice");
+        // openInNewTab(url,"ascii art in chinese by sliiice");
+        var title = "newImg_"+new Date().getTime()+"_"+this.width+"_"+this.height+".png";
+        downloadImage(url,title);
         this.xx('done')
         this.loaded();
       }
@@ -264,4 +280,24 @@ function copyToClipboard(content) {
       document.addEventListener("copy", handler, true);
       document.execCommand("copy");
   }
+}
+
+// 新标签页打开base64图片
+function openInNewTab(base64Content,title){
+  var  newWindow = window.open(title)
+  var html = '<html style="display: block;color: -internal-root-color;"><head><meta name="viewport" content="width=device-width, minimum-scale=0.1"><title>'+title+'</title></head><body style="margin: 0px; background: #0e0e0e;"><img style="-webkit-user-select: none;margin: auto;" src="'+base64Content+'"></body></html>';
+  setTimeout(() => {
+    newWindow.document.write(html);
+  }, 0);
+}
+
+// 直接下载图片
+function downloadImage(url,title){
+  var a = document.createElement("a");
+  document.body.appendChild(a);
+  a.download = title;
+  a.href = url;
+  var evt = new MouseEvent('click', {view: window, bubbles: true, cancelable: true});
+  a.dispatchEvent(evt);
+  document.body.removeChild(a);
 }
