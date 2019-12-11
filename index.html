@@ -17,9 +17,9 @@
                 <h1>chinese ascii art</h1>
                 <div id="info">
                   <em>drop a .jpg on the canvas</em><br>
-                  ↑ / → : <a href="javascript: site.sizeup();showStatus()">bigger</a><br>
-                  ↓ / ← : <a href="javascript: site.sizedown();showStatus()">smaller</a><br>
-                  r : <a href="javascript: site.init();showStatus()">random image</a><br>
+                  ↑ / → : <a href="javascript: site.sizeup()">bigger</a><br>
+                  ↓ / ← : <a href="javascript: site.sizedown()">smaller</a><br>
+                  r : <a href="javascript: site.init()">random image</a><br>
                   s : <a href="javascript: site.dosave()">save to .png</a><br>
                   c : <a href="javascript: site.saveContentToClipboard()">copy content to clipboard</a><br>
                   <br/>
@@ -46,10 +46,12 @@
 <script type="text/javascript">
   var site = new Site();
   site.setup();
-  setTimeout(() => {
+  setInterval(() => {
     showStatus();
   }, 1000);
   function showStatus(){
+    var col = site.source.col?site.source.col:0;
+    var row = site.source.row?site.source.row:0;
     document.getElementById("col").innerHTML = site.source.col;
     document.getElementById("row").innerHTML = site.source.row;
   }
